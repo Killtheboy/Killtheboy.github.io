@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>创建及扩展LVM - Kill The Boy</title>	
+	<meta name="author" content="Vainx">
+	
+
+  <meta name="description" content="创建及扩展LVM步骤">
+
+
+
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">Kill The Boy</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+		
+		<h1>创建及扩展LVM</h1>
+		
+<div class="metadata">
+  <time datetime="2017-04-16T19:20:00+02:00" pubdate>Sun 16 April 2017</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/vainx.html">Vainx</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/lvm.html">LVM</a></p></div>		
+		<h3><em>1. fdisk 創建分區</em></h3>
+<div class="highlight"><pre><span></span>fdisk /dev/sda
+參數n 創建新分區
+分區類型 e 擴展分區 p 主分區
+參數p查看當前分區
+lvm 一定要指定分區為8e 參數t可指定分區類型
+參數w寫入分區表
+</pre></div>
+
+
+<h3><em>2. 創建PV</em></h3>
+<div class="highlight"><pre><span></span>pvdisplay 查看已存在的PV
+partprobe 使分區表生效
+pvcreate /dev/sda3
+#可能要重啟
+</pre></div>
+
+
+<h3><em>3.創建VG</em></h3>
+<div class="highlight"><pre><span></span>vgcreate vg_fihserv88 /dev/sda3 或 vgextend
+</pre></div>
+
+
+<h3><em>4.創建LV</em></h3>
+<div class="highlight"><pre><span></span>lvdisplay
+lvcreate -l 大小（可用PE大小） -n lv_u1 vg_fihserv88
+</pre></div>
+
+
+<h3><em>5.擴展LV</em></h3>
+<div class="highlight"><pre><span></span>lvextend -L +450G /dev/rhel/u2
+lvextend -l +100%FREE /dev/rhel/u1
+</pre></div>
+
+
+<h3><em>6.格式化分區</em></h3>
+<div class="highlight"><pre><span></span>格式化 ext4
+mkfs -t ext4 /dev/vg_fihserv88/lv_u1
+
+調整xfs分區大小
+xfs_growfs /dev/mapper/rhel-u1
+調整ext2,3,4分區大小
+resize2fs -f
+</pre></div>
+
+
+<h3><em>7.掛載以及開機掛載</em></h3>
+<div class="highlight"><pre><span></span>mkdir -p /u1
+mount /dev/vg_fihserv88/lv_u1 /u1
+vi /etc/fstab
+添加后開機掛載
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+		    <div class="sidebar-container" >
+
+
+  	          <nav>
+	            <h2>Categories</h2>
+	            <ul>
+	                <li class="active"><a href="/category/linux.html">Linux</a></li>
+	            </ul>
+	          </nav>
+
+
+		
+                    <aside>
+                      <h2>Music</h2>
+			<p>
+                    <iframe allowTransparency="true" width="300" height="320" frameborder="no" scrolling="no" border="0" marginwidth="0" marginheight="0" src="https://music.daoapp.io/iframe?playlist=38820039&qlrc=1&qnarrow=0&max_width=255px&max_height=240px&autoplay=1&mode=random"></iframe>
+			</p>
+                    </aside>
+	        </div>
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  Vainx - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-sober">pelican-sober</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>
