@@ -2,9 +2,13 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>Kill The Boy</title>	
+	<title>创建及扩展LVM - Kill The Boy</title>	
 	<meta name="author" content="Vainx">
 	
+
+  <meta name="description" content="创建及扩展LVM步骤">
+
+
 
 	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
 		
@@ -25,12 +29,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="/create_lvm.html">创建及扩展LVM</a></h1>
-        <h3><em>1. fdisk 創建分區</em></h3>
+	<article class="full">
+		
+		<h1>创建及扩展LVM</h1>
+		
+<div class="metadata">
+  <time datetime="2017-04-16T19:20:00+02:00" pubdate>Sun 16 April 2017</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/vainx.html">Vainx</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/lvm.html">LVM</a></p></div>		
+		<h3><em>1. fdisk 創建分區</em></h3>
 <div class="highlight"><pre><span></span>fdisk /dev/sda
 參數n 創建新分區
 分區類型 e 擴展分區 p 主分區
@@ -81,13 +91,14 @@ resize2fs -f
 mount /dev/vg_fihserv88/lv_u1 /u1
 vi /etc/fstab
 添加后開機掛載
-</pre></div>
-      </article>
+</pre></div>	
 
-      <hr />
+	</article>
 
-    
-
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
 
 
 		  </div>	
@@ -99,7 +110,7 @@ vi /etc/fstab
   	          <nav>
 	            <h2>Categories</h2>
 	            <ul>
-	                <li ><a href="/category/linux.html">Linux</a></li>
+	                <li class="active"><a href="/category/linux.html">Linux</a></li>
 	            </ul>
 	          </nav>
 
